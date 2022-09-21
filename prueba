@@ -1,0 +1,46 @@
+const gridContainer = document.getElementById ('grid-container')
+gridContainer.className = 'grid-container'
+
+
+const consultaApi = () => { 
+    const resultado = fetch('https://thesimpsonsquoteapi.glitch.me/quotes?count=50')
+    .then((response) => response.json())
+    .then((data) => { 
+        let frases = []
+        for (frase of data) {
+            if (frases.includes(frase.quote)) { 
+            } else { 
+                frases.push(frase.quote)
+            }
+        }
+        
+
+
+        for (obj of data) { 
+            const gridCard = document.createElement ('div')
+            gridCard.className = 'grid-item'
+            gridContainer.appendChild(gridCard)
+        
+            const tituloCard = document.createElement ('h1')
+            tituloCard.innerText = `${obj.character}`
+        
+            const imgCard = document.createElement ('img')
+            imgCard.className = 'img-card'
+            imgCard.src = `${obj.image}`
+
+            gridCard.appendChild(tituloCard)
+            gridCard.appendChild(imgCard) 
+            
+            
+            if(frases.includes(obj.quote)) {
+                console.log (obj.quote)        
+                const fraseCard = document.createElement ('p')
+                fraseCard.innerText = `${obj.quote}`
+                gridCard.appendChild(fraseCard) 
+            }            
+          }
+        
+    });
+}
+
+consultaApi();
