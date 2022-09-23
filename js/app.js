@@ -1,68 +1,50 @@
 const gridContainer = document.getElementById ('grid-container')
 gridContainer.className = 'grid-container'
+const buscador = document.getElementById('buscador')
 
-const consultaApi = () => { 
-    const resultado = fetch(`https://thesimpsonsquoteapi.glitch.me/quotes?count=num`)
+let personajes = []
+
+const consultaAPI = () => { 
+    const resultado = fetch(`https://thesimpsonsquoteapi.glitch.me/quotes?count=50`)
     .then((response) => response.json())
     .then((data) => { 
-            
-        // BUSCAR PERSONAJES
-            const buscador = document.getElementById ('buscador')
-            buscador.addEventListener ('keyup', ()=> { 
-                    buscarPersonaje(data)
-                })
- 
-        for (obj of data) { 
-            /* PEGO EN CARD NOMBRE, IMG Y FRASE*/
-            const gridCard = document.createElement ('div')
-            gridCard.className = 'grid-item'
-            gridContainer.appendChild(gridCard)
-        
-            const tituloCard = document.createElement('h2')
-            tituloCard.innerText =  `${obj.character}`
-            gridCard.appendChild(tituloCard)
-
-            const imgCard = document.createElement('img')
-            imgCard.src = `${obj.image}`
-            gridCard.appendChild(imgCard)
-           
-
-
-             /*ARRAY DE FRASES SIN REPETIR*/
-             let resultado = data.reduce((acc, quote)=>{
-                if(!acc.includes(quote)) {
-                    acc.push(quote.quote) 
-                }  
-                return acc;
-            },[])
-
-            const fraseCard = document.createElement ('p')
-            gridCard.appendChild(fraseCard)
-            fraseCard.innerText = `${obj.quote}` 
-
-
-   
-         
-
-        }
+        personajes = data.filter ((e)=> {
+            if (!personajes.includes (e.quote)) { 
+                personajes.push(e)
+            }
+            renderHTML (personajes);
+        }) 
     });
 }
-consultaApi(6);
 
-/*PAGINACIÓN */ 
-const anterior = document.getElementById ('anterior')
-const siguiente = document.getElementById ('siguiente')
 
-siguiente.addEventListener ('click', ()=> { 
-    gridContainer.innerHTML = ``
-    consultaApi (6)
+const renderHTML = (personajes) => { 
+    let html = ""
+    for (let i=0; i < personajes.length; i++) { 
+        html += `<div class="grid-item">
+        <h1>${personajes[i].character}</h1>
+        <img src="${personajes[i].image}" class"img-card"</img>
+        <p>${personajes[i].quote}</p>
+        </div>`
+    }
+    gridContainer.innerHTML = html;
+}
 
-})
 
-anterior.addEventListener ('click', ()=> { 
-    gridContainer.innerHTML = ``
-    consultaApi (6)
-})
+buscador.addEventListener("keyup", ()=> {
+    fetch(
+      `https://thesimpsonsquoteapi.glitch.me/quotes?count=6&character=`+buscador.value 
+    ).then(function (data) {
+      data.json().then(function (response) {
+        renderHTML(response);
+        console.log (buscador.value)
+      });
+    });
+  });
+
+
+consultaAPI()
+
 
 
 
