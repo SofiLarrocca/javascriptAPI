@@ -11,16 +11,22 @@
     <title>API THE SIMPSON</title>
 </head>
 <body>
-    <h1>API THE SIMPSON</h1>
-
-    <input id=buscador type="text">
+    <div class="inputSearch">
+        <h1 class="title">THE SIMPSON</h1>
+        <label> Buscar Personaje:
+            <input id=buttonSearch type="text">
+        </label>
+    </div>
     
-    <div id="grid-container">
+    <div id="grid-container" class="grid-container">
 
     </div>
 
-    <button id="anterior">Anterior</button>
-    <button id="siguiente">Siguiente</button>
+    <div class="btnPag">
+        <button id="buttonPrev">Anterior</button>
+        <p id="indexPag">1</p>
+        <button id="buttonNext">Siguiente</button>
+    </div>
 
 
 

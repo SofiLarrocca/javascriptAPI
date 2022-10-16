@@ -3,9 +3,22 @@
     padding: 0;
     box-sizing: border-box;
 }
+body { 
+    background-color: rgb(185, 190, 190);
+}
+
+.inputSearch { 
+    margin-top: 2rem;
+    text-align: center;
+}
+
+input { 
+    padding: 0.2rem;
+    margin-top: 1rem;
+}
+
 
 .grid-container {
-    background-color: azure;
     padding: 6rem; 
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -22,5 +35,19 @@
 }
 
 .img-card { 
-    max-width: 5rem;
+    max-width: 10rem;
+}
+
+.btnPag { 
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem;
+}
+
+.btnPag p { 
+    padding: 0.5rem 1rem;
+}
+
+.btnPag button { 
+    padding: 0.5rem;
 }
